@@ -19,16 +19,6 @@ class EventController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
@@ -68,10 +58,12 @@ class EventController extends Controller
      */
     public function keepEvent($id)
     {
-        /// TODO: Implement
         $event = $this->eventService->getEventById($id);
 
-        $isInclude = $event->users->first(function ($user) { return $user->id === Auth::user()->id;});
+        $isInclude = $event->users->first(function ($user) {
+            return $user->id === Auth::user()->id;
+        });
+
         if ($isInclude) {
             return redirect()
                 ->route('events.show', ['event' => $event->id])
@@ -85,10 +77,18 @@ class EventController extends Controller
 
     /**
      * @param $id
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy ($id)
+    public function destroy($id)
     {
+        $event = $this->eventService->getEventById($id);
 
+        $event->users()->detach($event->users->map(function ($user) {
+            return $user->id;
+        }));
+
+        $event->delete();
+
+        return redirect()->route('home');
     }
 }
