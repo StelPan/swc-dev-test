@@ -26,11 +26,20 @@ class EventService
     /**
      * Get event by id.
      * @param $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function getEventById($id)
     {
-        return Event::with('user', 'users')->find($id);
+        return Event::with('user', 'users')->findOrFail($id);
+    }
+
+    /**
+     * @param $user_id
+     * @return mixed
+     */
+    public function getEventsByUserId($user_id)
+    {
+        return Event::where('user_id', '=', $user_id)->get();
     }
 
     /**
