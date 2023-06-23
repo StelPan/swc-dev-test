@@ -29,4 +29,20 @@ class EventController extends Controller
         $events = $this->eventService->getEvents();
         return response()->json(['events' => $events]);
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
+    {
+        $event = $this->eventService->getEventById($id);
+        return response()->json(['event' => $event]);
+    }
+
+    public function join($id)
+    {
+        $this->eventService->touchEvent($id, Auth::user()->id);
+        return response()->json(['success' => true, 'message' => 'Event joined successfully']);
+    }
 }
