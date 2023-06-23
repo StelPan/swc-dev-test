@@ -17,8 +17,8 @@ class CreateEventUserTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('event_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('event_id')->references('id')->on('events');
+            // $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('event_id')->references('id')->on('events');
         });
     }
 

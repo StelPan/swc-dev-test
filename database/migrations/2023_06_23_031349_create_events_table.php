@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration
             $table->integer('user_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
