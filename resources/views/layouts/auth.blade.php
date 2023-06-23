@@ -76,7 +76,29 @@
     </nav>
 
     <main class="py-4">
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <h2>Все события</h2>
+                    <a href="{{route('events.create')}}">Создать событие</a>
+
+                    <div class="card mb-2">
+                        <div class="card-header">Все события</div>
+                        <ul class="list-group list-group-flush">
+                            <event-list-component/>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">Мои события</div>
+                        <user-event-list-component :user-id="{{ Auth::user()->id }}" />
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
     </main>
 </div>
 </body>
