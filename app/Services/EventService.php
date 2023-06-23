@@ -19,6 +19,16 @@ class EventService
      */
     public function getEvents()
     {
-        return $this->model->all();
+        return Event::with('user')->get();
+    }
+
+    /**
+     * Create a new event
+     * @param array $data
+     * @return mixed
+     */
+    public function createEvent(array $data)
+    {
+        return $this->model->create($data);
     }
 }
