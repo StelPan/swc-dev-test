@@ -3,7 +3,7 @@
  * @returns {Promise<*>}
  */
 const loadEvents = async () => {
-    const request = await axios.get('/api/events');
+    const request = await axios.get('/events');
     return request.data.events;
 }
 
@@ -13,7 +13,7 @@ const loadEvents = async () => {
  * @returns {Promise<*>}
  */
 const loadUserEvents = async (id) => {
-    const request = await axios.get(`/api/users/${id}/events`);
+    const request = await axios.get(`/users/${id}/events`);
     return request.data.events;
 }
 
