@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('events', EventController::class);
     Route::post('events/{id}/keep', [EventController::class, 'keepEvent'])->name('events.keep');
 
-    Route::resource('users', UsersController::class);
+    Route::resource('users', UserController::class);
 });
 
 
