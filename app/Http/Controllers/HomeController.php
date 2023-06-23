@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\EventService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
+     * @var EventService
+     */
+    private $eventService;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(EventService $eventService)
     {
+        $this->eventService = $eventService;
+
         $this->middleware('auth');
     }
 
@@ -23,6 +31,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $events = $this->eventService->getEvents();
+
+        return view('home', compact('events'));
     }
 }
