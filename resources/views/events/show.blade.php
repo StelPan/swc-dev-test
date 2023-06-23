@@ -47,7 +47,10 @@
                         @endif
                     </form>
 
-                    <form action="{{ route('events.destroy', ['event' => $event->id]) }}">
+                    <form action="{{ route('events.destroy', ['event' => $event->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
                         @if ($event->user->id === Auth::user()->id)
                             <button class="btn btn-danger" type="submit">Отказаться от участия</button>
                         @endif
