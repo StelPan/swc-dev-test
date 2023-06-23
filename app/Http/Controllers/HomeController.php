@@ -31,8 +31,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
         $events = $this->eventService->getEvents();
-
-        return view('home', compact('events'));
+        return view('home', compact('events', 'user'));
     }
 }
