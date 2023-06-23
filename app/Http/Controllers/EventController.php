@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\EventService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -40,7 +41,7 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -52,18 +53,19 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $event = $this->eventService->getEventById($id);
+        return view('events.show', compact('event'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -74,8 +76,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -83,14 +85,35 @@ class EventController extends Controller
         //
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function keepEvent($id)
+    {
+        /// TODO: Implement
+        $event = $this->eventService->getEventById($id);
+
+        if ($event->users->where('user_id', '=', Auth::user()->id)) {
+            return redirect()
+                ->route('events.show', ['event' => $event->id])
+                ->with('error', 'Вы уже являетесь участником');
+        }
+
+        $this->eventService->touchEvent($id, Auth::user()->id);
+
+        return redirect()->route('events.show', ['event' => $id]);
     }
 }
