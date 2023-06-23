@@ -59,7 +59,7 @@ class EventService
      */
     public function touchEvent(int $id, int $user_id)
     {
-        $event = Event::find($id);
+        $event = Event::findOrFail($id);
         $event->users()->attach(User::find($user_id));
         return $event;
     }
