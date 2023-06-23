@@ -63,41 +63,6 @@ class EventController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -106,7 +71,8 @@ class EventController extends Controller
         /// TODO: Implement
         $event = $this->eventService->getEventById($id);
 
-        if ($event->users->where('user_id', '=', Auth::user()->id)) {
+        $isInclude = $event->users->first(function ($user) { return $user->id === Auth::user()->id;});
+        if ($isInclude) {
             return redirect()
                 ->route('events.show', ['event' => $event->id])
                 ->with('error', 'Вы уже являетесь участником');
@@ -115,5 +81,14 @@ class EventController extends Controller
         $this->eventService->touchEvent($id, Auth::user()->id);
 
         return redirect()->route('events.show', ['event' => $id]);
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function destroy ($id)
+    {
+
     }
 }
