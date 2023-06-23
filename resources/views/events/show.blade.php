@@ -46,6 +46,12 @@
                             <button class="btn btn-success" type="submit">Принять участие</button>
                         @endif
                     </form>
+
+                    <form action="{{ route('events.destroy', ['event' => $event->id]) }}">
+                        @if ($event->user->id === Auth::user()->id)
+                            <button class="btn btn-danger" type="submit">Отказаться от участия</button>
+                        @endif
+                    </form>
                 </div>
             </div>
         </div>
