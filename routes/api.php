@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\UserEventController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/token', [\App\Http\Controllers\Api\AuthController::class, 'token']);
+    Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
+    Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
 });
 
-Route::resource('events', EventController::class);
-Route::resource('users.events', UserEventController::class);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('events', EventController::class)->only('index');
+    Route::resource('users.events', UserEventController::class);
+});
