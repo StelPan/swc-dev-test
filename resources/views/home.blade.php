@@ -17,13 +17,7 @@
                 <div class="card mb-2">
                     <div class="card-header">Все события</div>
                     <ul class="list-group list-group-flush">
-                        @foreach($events as $event)
-                            <li class="list-group-item">
-                                <a href="{{ route('events.show', ['event' => $event->id]) }}">
-                                    {{$event->title}}
-                                </a>
-                            </li>
-                        @endforeach
+                        <event-list-component />
                     </ul>
                 </div>
 
