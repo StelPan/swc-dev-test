@@ -51,10 +51,21 @@ class EventController extends Controller
         return response()->json(['message' => 'Event create successfully', 'event' => $event]);
     }
 
-    public function destroy()
+    public function destroy($id)
     {
         // TODO: Destroy event
+        $event = $this->eventService->getEventById($id);
+        if ($event->user->id !== Auth::user()->id) {
+            return response()->json(['error' => 'Access denied'], 401);
+        }
 
+        $event->users()->detach($event->users->map(function ($user) {
+            return $user->id;
+        }));
+
+        $event->delete();
+
+        return response()->json(['message' => 'Delete event success'], 200);
     }
 
     public function join($id)
