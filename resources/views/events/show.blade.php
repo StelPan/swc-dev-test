@@ -24,13 +24,7 @@
                                     Создатель события: {{ $event->user->name }} {{ $event->user->surname }}
                                 </a>
                             </li>
-                            @foreach($event->users as $user)
-                                <li>
-                                    <a href="{{ route('users.show', ['user' => $user->id]) }}">
-                                        {{ $user->name }} {{ $user->surname }}
-                                    </a>
-                                </li>
-                            @endforeach
+                            <member-list-component :event-id="{{$event->id}}" />
                         </ul>
                     </div>
 
