@@ -23,6 +23,8 @@ Vue.component('event-list-component', require('./components/EventList.vue').defa
 
 Vue.component('user-event-list-component', require('./components/UserEventList.vue').default);
 
+Vue.component('member-list-component', require('./components/MemberList').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
