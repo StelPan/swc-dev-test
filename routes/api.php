@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\EventUserController;
 use App\Http\Controllers\Api\UserEventController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,5 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('events', EventController::class)->only('index');
     Route::resource('users.events', UserEventController::class);
+    Route::resource('events.users', EventUserController::class)->only('index');
 });
