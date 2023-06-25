@@ -13,9 +13,7 @@ try {
 
 window.axios = require('axios');
 
-const baseURL = process.env.APP_ENV === 'production' ?
-    'http://swc-dev-test.na4u.ru' :
-    'http://127.0.0.1:8000';
+const baseURL = 'http://swc-dev-test.na4u.ru';
 
 window.axios = window.axios.create({baseURL});
 
