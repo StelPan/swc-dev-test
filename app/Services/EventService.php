@@ -43,6 +43,16 @@ class EventService
     }
 
     /**
+     * @param $event_id
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|\Illuminate\Support\HigherOrderCollectionProxy|mixed
+     */
+    public function getUsersByEventId($event_id)
+    {
+        $event = Event::with('users')->findOrFail($event_id);
+        return $event->users;
+    }
+
+    /**
      * Create a new event
      * @param array $data
      * @return mixed
