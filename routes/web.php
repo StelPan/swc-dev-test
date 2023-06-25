@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EventController as EventApiController;
+use App\Http\Controllers\Api\EventUserController;
 use App\Http\Controllers\Api\UserEventController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
@@ -33,5 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('events', EventApiController::class)->only('index');
     Route::resource('users.events', UserEventController::class)->only('index');
+    Route::resource('events.users', EventUserController::class)->only('index');
 });
 
