@@ -2,7 +2,8 @@ window._ = require('lodash');
 
 try {
     require('admin-lte');
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12,8 +13,10 @@ try {
 
 window.axios = require('axios');
 
-window.axios = window.axios.create({
-    baseURL: 'http://127.0.0.1:8000/'
-});
+const baseURL = process.env.APP_ENV === 'production' ?
+    'http://swc-dev-test.na4u.ru' :
+    'http://127.0.0.1:8000';
+
+window.axios = window.axios.create({baseURL});
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
