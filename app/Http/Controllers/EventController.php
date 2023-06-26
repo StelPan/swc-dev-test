@@ -37,7 +37,7 @@ class EventController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $this->eventService->createEvent(array_merge($request->all(), ['user_id' => auth()->user()->id]));
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Событие успешно создано.');
     }
 
     /**
