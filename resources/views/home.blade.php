@@ -15,6 +15,8 @@
                     {{session('success')}}
                 </div>
             @endif
+
+            У вас нет созданных событий.
         </div>
     </div>
 @endsection
