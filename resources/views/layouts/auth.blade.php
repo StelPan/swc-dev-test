@@ -89,7 +89,7 @@
                         </ul>
                     </div>
 
-                    <div class="card">
+                    <div class="card mb-2">
                         <div class="card-header">Мои события</div>
                         <user-event-list-component :user-id="{{ Auth::user()->id }}" />
                     </div>
