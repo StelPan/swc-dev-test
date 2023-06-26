@@ -13,8 +13,11 @@ try {
 
 window.axios = require('axios');
 
-const baseURL = 'http://swc-dev-test.na4u.ru';
+const baseURL = process.env.MIX_APP_ENV === 'production' ?
+    'http://swc-dev-test.na4u.ru' :
+    'http://127.0.0.1:8000';
 
 window.axios = window.axios.create({baseURL});
+console.log(axios)
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
