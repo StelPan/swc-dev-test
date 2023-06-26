@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\EventUserController;
 use App\Http\Controllers\Api\UserEventController;
@@ -17,14 +18,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('/token', [\App\Http\Controllers\Api\AuthController::class, 'token']);
-    Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
-    Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
+    Route::post('/token', [AuthController::class, 'token']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('events', EventController::class)->only('index');
-    Route::resource('users.events', UserEventController::class);
+    Route::resource('users.events', UserEventController::class)->only('index');
     Route::resource('events.users', EventUserController::class)->only('index');
 });
