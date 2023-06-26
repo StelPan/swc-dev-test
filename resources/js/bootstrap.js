@@ -18,6 +18,5 @@ const baseURL = process.env.MIX_APP_ENV === 'production' ?
     'http://127.0.0.1:8000';
 
 window.axios = window.axios.create({baseURL});
-console.log(axios)
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
