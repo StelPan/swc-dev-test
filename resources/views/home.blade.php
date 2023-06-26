@@ -10,6 +10,11 @@
             </div>
         </div>
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissable">
+                    {{session('success')}}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
