@@ -43,6 +43,15 @@ class EventService
     }
 
     /**
+     * @param $user_id
+     * @return mixed
+     */
+    public function getFirstEventByUserId($user_id)
+    {
+        return Event::where('user_id', '=', $user_id)->first();
+    }
+
+    /**
      * @param $event_id
      * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|\Illuminate\Support\HigherOrderCollectionProxy|mixed
      */
