@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\EventService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -20,19 +21,20 @@ class HomeController extends Controller
     public function __construct(EventService $eventService)
     {
         $this->eventService = $eventService;
-
-        $this->middleware('auth');
     }
 
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        $user = auth()->user();
-        $events = $this->eventService->getEvents();
-        return view('home', compact('events', 'user'));
+        $event = $this->eventService->getFirstEventByUserId(Auth::user()->id);
+        if ($event) {
+            return redirect()->route('events.show', ['event' => $event->id])->with('event', $event);
+        }
+
+        return view('home');
     }
 }
